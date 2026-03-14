@@ -11,7 +11,13 @@ interface CreateBuildConfigProps {
 
 export const createBuildConfig = ({ externalPackages, packageName, alias, rootDir }: CreateBuildConfigProps) =>
   defineConfig({
-    plugins: [dts({ tsconfigPath: path.resolve(rootDir, './tsconfig.json'), rollupTypes: true })],
+    plugins: [
+      dts({
+        tsconfigPath: path.resolve(rootDir, './tsconfig.json'),
+        rollupTypes: true,
+        exclude: ['**/__tests__/**', '**/*.spec.ts', '**/*.spec.tsx'],
+      }),
+    ],
     resolve: { alias },
     build: {
       outDir: path.resolve(rootDir, 'lib'),
